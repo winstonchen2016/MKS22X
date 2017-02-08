@@ -29,6 +29,7 @@ public class Recursion{
     }
 
     public static void main(String[]args){
+	System.out.println(name()); //should be "Chen,Winston"
 	//sqrt(-1); //should throw IllegalArgumentException
 	System.out.println(sqrt(0)); //should be 0
 	System.out.println(sqrt(4)); //should be ~2
