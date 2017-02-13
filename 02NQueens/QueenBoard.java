@@ -10,6 +10,12 @@ public class QueenBoard{
 	}
 	board = new int[size][size];
 	solution = new int[size][size];
+	solutionCount = -1;
+	for(int r = 0; r < board.length; r++){
+	    for(int c = 0; c < board[r].length; c++){
+		board[r][c] = 0;
+	    }
+	}
     }
 
     /**
@@ -21,13 +27,14 @@ public class QueenBoard{
      *final configuration of the board after adding 
      *all n queens. Uses solveH
      */
-    public boolean solve(){
+    public void solve(){
+	//clears board
 	for(int r = 0; r < board.length; r++){
 	    for(int c = 0; c < board[r].length; c++){
 		board[r][c] = 0;
 	    }
 	}
-	return solveH(0);
+	solveH(0);
     }
 
     private boolean solveH(int col){
@@ -47,35 +54,57 @@ public class QueenBoard{
 	for(int row = 0; row < board[col].length; row ++){
 	    if(board[row][col] == 0){
 		addQueen(row, col);
-		System.out.println(toString());
-		if(solveH(col + 1) == false){
+		//System.out.println(col);
+		//System.out.println(toStringT());
+		if(solveH(col + 1)){
+		    return true;
+		}
+		else{
 		    removeQueen(row, col);
 		}
-		//return solveH(col + 1);
 	    }
 	}
 	return false;
     }
-    /*	
-    public boolean countSolutions(){
-	return countSolutionsH(0);
+    
+    public void countSolutions(){
+	//clears board
+	for(int r = 0; r < board.length; r++){
+	    for(int c = 0; c < board[r].length; c++){
+		board[r][c] = 0;
+	    }
+	}
+	//System.out.println(toStringT());
+	countSolutionsH(0);
     }
 	
-    private boolean countSolutionsH(int col){
-	if col > board size //means a queen has been placed in every column (aka solution is found)
-		     removeQueen(r,c)
-		     solutionCount += 1
-		     return false
-		     current row = 0
-		     loop though rows
-		     if(# at r,c == 0){
-			 addQueen(r,c)
-			 solveH(col + 1)
-		     }
-	if loop ends
-		    return false;
+    public boolean countSolutionsH(int col){
+	solutionCount = 0;
+	if(board.length == 2 || board.length == 3){
+	    return false;
+	}
+	if(col >= board.length){ //means a queen has been placed in every column (aka solution is found)
+	    return true;
+	}
+	//loop though rows
+	for(int row = 0; row < board[col].length; row ++){
+	    System.out.println(toStringT());
+	    if(board[row][col] == 0){
+		addQueen(row, col);
+		//System.out.println(col);
+		//System.out.println(toStringT());
+		if(solveH(col + 1)){
+		    solutionCount += 1;
+		    removeQueen(row, col);
+		}
+		else{
+		    removeQueen(row, col);
+		}
+	    }
+	}
+	return false;
     }
-    */
+    
     private void addQueen(int r, int c){
 	board[r][c] = -1; //places a queen on square r, c (sets value to -1)
 	//loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
@@ -106,12 +135,7 @@ public class QueenBoard{
      */
 
     public int getSolutionCount(){
-	if(solution.length == 0){
-	    return -1;
-	}
-	else{
-	    return solutionCount;
-	}
+	return solutionCount;
     }
 
     /**toString
@@ -125,45 +149,56 @@ public class QueenBoard{
 	String ans = "";
 	for(int row = 0; row < solution.length; row++){
 	    for(int col = 0; col < board[row].length; col++){
-		/*if(solution[row][col] == -1){
+		if(solution[row][col] == -1){
 		    ans += "Q ";
 		}
 		else{
 		    ans += "_ ";
-		    }*/
-		ans = ans + board[row][col] + " ";
+		}
 	    }
 	    ans += "\n";
 	}
 	return ans;
     }
+    
+      public void addQueenT(int r, int c){
+      board[r][c] = -1; //places a queen on square r, c (sets value to -1)
+      //loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
+      for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+      if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
+      board[row][col] += 1;
+      }
+      }
+      }
+      }
 
-    /*
-    public void addQueenT(int r, int c){
-	board[r][c] = -1; //places a queen on square r, c (sets value to -1)
-	//loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
-	for(int row = 0; row < board.length; row++){
+      public void removeQueenT(int r, int c){
+      //loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
+      for(int row = 0; row < board.length; row++){
+      for(int col = 0; col < board[row].length; col++){
+      if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
+      board[row][col] -= 1;
+      }
+      }
+      }
+      board[r][c] = 0; //places a queen on square r, c (sets value to -1)
+      }
+    
+    public String toStringT(){
+	//loop through solution array
+	//replace -1 with q
+	//replace everything else with
+	String ans = "";
+	for(int row = 0; row < solution.length; row++){
 	    for(int col = 0; col < board[row].length; col++){
-		if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
-		    board[row][col] += 1;
-		}
+	        ans = ans + board[row][col] + " ";
 	    }
+	    ans += "\n";
 	}
+	return ans;
     }
-
-    public void removeQueenT(int r, int c){
-	//loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
-	for(int row = 0; row < board.length; row++){
-	    for(int col = 0; col < board[row].length; col++){
-		if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
-		    board[row][col] -= 1;
-		}
-	    }
-	}
-	board[r][c] = 0; //places a queen on square r, c (sets value to -1)
-    }
-    */
-
+    
     public static void main(String[]args){
 	//QueenBoard q0 = new QueenBoard(2);
 	//System.out.println(q0.solve());
@@ -172,8 +207,10 @@ public class QueenBoard{
 	//System.out.println(q1.solve());
 	//System.out.println(q1.toString());
 	QueenBoard q2 = new QueenBoard(4);
-	System.out.println(q2.solve());
+	q2.solve();
+	q2.countSolutions();
 	System.out.println(q2.toString());
+	System.out.println(q2.getSolutionCount());
 	//q2.addQueenT(0, 0);
 	//System.out.println(q2.toString());
 	//q2.addQueenT(2, 1);
