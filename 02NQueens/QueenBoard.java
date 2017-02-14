@@ -68,6 +68,7 @@ public class QueenBoard{
     }
     
     public void countSolutions(){
+	solutionCount = 0;
 	//clears board
 	for(int r = 0; r < board.length; r++){
 	    for(int c = 0; c < board[r].length; c++){
@@ -79,7 +80,6 @@ public class QueenBoard{
     }
 	
     public boolean countSolutionsH(int col){
-	solutionCount = 0;
 	if(board.length == 2 || board.length == 3){
 	    return false;
 	}
@@ -88,12 +88,13 @@ public class QueenBoard{
 	}
 	//loop though rows
 	for(int row = 0; row < board[col].length; row ++){
-	    System.out.println(toStringT());
 	    if(board[row][col] == 0){
+		//System.out.println(col);
+		//System.out.println(toStringT());
 		addQueen(row, col);
 		//System.out.println(col);
 		//System.out.println(toStringT());
-		if(solveH(col + 1)){
+		if(countSolutionsH(col + 1)){
 		    solutionCount += 1;
 		    removeQueen(row, col);
 		}
@@ -160,30 +161,30 @@ public class QueenBoard{
 	}
 	return ans;
     }
-    
-      public void addQueenT(int r, int c){
-      board[r][c] = -1; //places a queen on square r, c (sets value to -1)
-      //loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
-      for(int row = 0; row < board.length; row++){
-      for(int col = 0; col < board[row].length; col++){
-      if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
-      board[row][col] += 1;
-      }
-      }
-      }
-      }
+    /*
+    public void addQueenT(int r, int c){
+	board[r][c] = -1; //places a queen on square r, c (sets value to -1)
+	//loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
+	for(int row = 0; row < board.length; row++){
+	    for(int col = 0; col < board[row].length; col++){
+		if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
+		    board[row][col] += 1;
+		}
+	    }
+	}
+    }
 
-      public void removeQueenT(int r, int c){
-      //loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
-      for(int row = 0; row < board.length; row++){
-      for(int col = 0; col < board[row].length; col++){
-      if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
-      board[row][col] -= 1;
-      }
-      }
-      }
-      board[r][c] = 0; //places a queen on square r, c (sets value to -1)
-      }
+    public void removeQueenT(int r, int c){
+	//loops through array board and adds "1" to spaces threatened by the queen on r, c (excludes spaces with queens)
+	for(int row = 0; row < board.length; row++){
+	    for(int col = 0; col < board[row].length; col++){
+		if(board[row][col] != -1 && (row - r == 0 || col - c == 0 || Math.abs(row - r) == Math.abs(col - c))){
+		    board[row][col] -= 1;
+		}
+	    }
+	}
+	board[r][c] = 0; //places a queen on square r, c (sets value to -1)
+    }
     
     public String toStringT(){
 	//loop through solution array
@@ -198,23 +199,62 @@ public class QueenBoard{
 	}
 	return ans;
     }
-    
+    */
     public static void main(String[]args){
-	//QueenBoard q0 = new QueenBoard(2);
-	//System.out.println(q0.solve());
-	//System.out.println(q0.toString());
-	//QueenBoard q1 = new QueenBoard(3);
-	//System.out.println(q1.solve());
-	//System.out.println(q1.toString());
-	QueenBoard q2 = new QueenBoard(4);
+	QueenBoard q1 = new QueenBoard(1);
+	System.out.println(q1.toString()); //blank grid
+        q1.solve();
+	System.out.println(q1.toString()); //possible solution
+	System.out.println(q1.getSolutionCount()); // -1
+	q1.countSolutions();
+	System.out.println(q1.getSolutionCount()); // 1
+	
+	QueenBoard q2 = new QueenBoard(2);
+	System.out.println(q2.toString()); //blank grid
 	q2.solve();
+	System.out.println(q2.toString()); //still blank grid
+	System.out.println(q2.getSolutionCount()); // -1
 	q2.countSolutions();
-	System.out.println(q2.toString());
-	System.out.println(q2.getSolutionCount());
-	//q2.addQueenT(0, 0);
-	//System.out.println(q2.toString());
-	//q2.addQueenT(2, 1);
-	//System.out.println(q2.toString());
-	    
+	System.out.println(q2.getSolutionCount()); // 0
+	
+	QueenBoard q3 = new QueenBoard(3);
+	System.out.println(q3.toString()); //blank grid
+	q3.solve();
+	System.out.println(q3.toString()); //still blank grid
+	System.out.println(q3.getSolutionCount()); // -1
+	q3.countSolutions();
+	System.out.println(q3.getSolutionCount()); // 0
+	
+	QueenBoard q4 = new QueenBoard(4);
+	System.out.println(q4.toString()); //blank grid
+	q4.solve();
+	System.out.println(q4.toString()); //possible solution
+	System.out.println(q4.getSolutionCount()); // -1
+	q4.countSolutions();
+	System.out.println(q4.getSolutionCount()); // 2
+	
+	QueenBoard q5 = new QueenBoard(5);
+	System.out.println(q5.toString()); //blank grid
+	q5.solve();
+	System.out.println(q5.toString()); //possible solution
+	System.out.println(q5.getSolutionCount()); // -1
+	q5.countSolutions();
+	System.out.println(q5.getSolutionCount()); // 10
+
+	QueenBoard q8 = new QueenBoard(8);
+	System.out.println(q8.toString()); //blank grid
+	q8.solve();
+	System.out.println(q8.toString()); //possible solution
+	System.out.println(q8.getSolutionCount()); // -1
+	q8.countSolutions();
+	System.out.println(q8.getSolutionCount()); // 92
+
+	QueenBoard q10 = new QueenBoard(10);
+	System.out.println(q10.toString()); //blank grid
+	q10.solve();
+	System.out.println(q10.toString()); //possible solution
+	System.out.println(q10.getSolutionCount()); // -1
+	q10.countSolutions();
+	System.out.println(q10.getSolutionCount()); // 724
     }
 }
