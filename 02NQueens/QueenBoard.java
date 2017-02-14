@@ -201,6 +201,8 @@ public class QueenBoard{
     }
     */
     public static void main(String[]args){
+	QueenBoard q0 = new QueenBoard(0); //exception
+	
 	QueenBoard q1 = new QueenBoard(1);
 	System.out.println(q1.toString()); //blank grid
         q1.solve();
