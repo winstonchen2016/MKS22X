@@ -30,12 +30,77 @@ public class KnightBoard{
 	if(level >= board.length * board[0].length){
 	    return true;
 	}
-	//for
+	if(row + 2 < board.length && col + 1 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row + 2, col + 1, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row + 2 < board.length && col - 1 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row + 2, col - 1, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row - 2 < board.length && col + 1 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row - 2, col + 1, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row - 2 < board.length && col - 1 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row - 2, col - 1, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row + 1 < board.length && col + 2 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row + 1, col + 2, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row + 1 < board.length && col - 2 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row + 1, col - 2, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row - 1 < board.length && col + 2 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row - 1, col + 2, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
+	if(row - 1 < board.length && col - 2 < board[row].length && board[row+2][col+1] == 0){
+	    board[row][col] = level;
+	    if(solveH(row - 1, col - 2, level + 1)){
+		return true;
+	    }else{
+		board[row][col] = 0;
+	    }
+	}
 	return false;
     }
 
     public static void main(String[]args){
-	KnightBoard n33 = new KnightBoard(3, 3);
-	System.out.println(n33.toString());
+	KnightBoard n55 = new KnightBoard(5, 5);
+	System.out.println(n55.toString());
+	n55.solve();
+	System.out.println(n55.toString());
     }
 }
