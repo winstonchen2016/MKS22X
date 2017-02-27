@@ -27,14 +27,16 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row ,int col, int level){ // level is the # of the knight
-	System.out.println(row + " " + col + " " + level);
+	System.out.println("Currently at: Row: " + row + " Col: " + col + " Lvl: " + level);
+	System.out.println(toString());
 	if(level >= board.length * board[0].length){
+	    board[row][col] = level;
 	    return true;
 	}
-	if(row >= board.length || col >= board[row].length){
-	    return false;
-	}
-	if(row + 2 < board.length && row + 2 > 0 && col + 1 < board[row].length && col + 1 > 0 && board[row+2][col+1] == 0){
+	//if(row >= board.length || col >= board[row].length){
+	//    return false;
+	//}
+	if(row + 2 < board.length && row + 2 >= 0 && col + 1 < board[0].length && col + 1 >= 0 && board[row+2][col+1] == 0){
 	    board[row][col] = level;
 	    if(solveH(row + 2, col + 1, level + 1)){
 		return true;
@@ -42,7 +44,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row + 2 < board.length && row + 2 > 0 && col - 1 < board[row].length && col - 1 > 0 && board[row+2][col-1] == 0){
+	if(row + 2 < board.length && row + 2 >= 0 && col - 1 < board[0].length && col - 1 >= 0 && board[row+2][col-1] == 0){
 	    board[row][col] = level;
 	    if(solveH(row + 2, col - 1, level + 1)){
 		return true;
@@ -50,7 +52,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row - 2 < board.length && row - 2 > 0 && col + 1 < board[row].length && col + 1 > 0 && board[row-2][col+1] == 0){
+	if(row - 2 < board.length && row - 2 >= 0 && col + 1 < board[0].length && col + 1 >= 0 && board[row-2][col+1] == 0){
 	    board[row][col] = level;
 	    if(solveH(row - 2, col + 1, level + 1)){
 		return true;
@@ -58,7 +60,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row - 2 < board.length && row - 2 > 0 && col - 1 < board[row].length && col - 1 > 0 && board[row-2][col-1] == 0){
+	if(row - 2 < board.length && row - 2 >= 0 && col - 1 < board[0].length && col - 1 >= 0 && board[row-2][col-1] == 0){
 	    board[row][col] = level;
 	    if(solveH(row - 2, col - 1, level + 1)){
 		return true;
@@ -66,7 +68,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row + 1 < board.length && row + 1 > 0 && col + 2 < board[row].length && col + 2 > 0 && board[row+1][col+2] == 0){
+	if(row + 1 < board.length && row + 1 >= 0 && col + 2 < board[0].length && col + 2 >= 0 && board[row+1][col+2] == 0){
 	    board[row][col] = level;
 	    if(solveH(row + 1, col + 2, level + 1)){
 		return true;
@@ -74,7 +76,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row + 1 < board.length && row + 1 > 0 && col - 2 < board[row].length && col - 2 > 0 && board[row+1][col-2] == 0){
+	if(row + 1 < board.length && row + 1 >= 0 && col - 2 < board[0].length && col - 2 >= 0 && board[row+1][col-2] == 0){
 	    board[row][col] = level;
 	    if(solveH(row + 1, col - 2, level + 1)){
 		return true;
@@ -82,7 +84,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row - 1 < board.length && row - 1 > 0 && col + 2 < board[row].length && col + 2 > 0 && board[row-1][col+2] == 0){
+	if(row - 1 < board.length && row - 1 >= 0 && col + 2 < board[0].length && col + 2 >= 0 && board[row-1][col+2] == 0){
 	    board[row][col] = level;
 	    if(solveH(row - 1, col + 2, level + 1)){
 		return true;
@@ -90,7 +92,7 @@ public class KnightBoard{
 		board[row][col] = 0;
 	    }
 	}
-	if(row - 1 < board.length && row - 1 > 0 && col - 2 < board[row].length && col - 2 > 0 && board[row-1][col-2] == 0){
+	if(row - 1 < board.length && row - 1 >= 0 && col - 2 < board[0].length && col - 2 >= 0 && board[row-1][col-2] == 0){
 	    board[row][col] = level;
 	    if(solveH(row - 1, col - 2, level + 1)){
 		return true;
