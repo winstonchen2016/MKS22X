@@ -1,6 +1,8 @@
 public class KnightBoard{
 
     private int[][] board;
+    private static final int[] rowChoices = {2, 2, -2, -2, 1, 1, -1, -1};
+    private static final int[] colChoices = {1, -1, 1, -1, 2, -2, 2, -2};
 
     public KnightBoard(int startingRows,int startingCols) {
 	board = new int[startingRows][startingCols];
@@ -33,74 +35,17 @@ public class KnightBoard{
 	    board[row][col] = level;
 	    return true;
 	}
-	//if(row >= board.length || col >= board[row].length){
-	//    return false;
-	//}
-	if(row + 2 < board.length && row + 2 >= 0 && col + 1 < board[0].length && col + 1 >= 0 && board[row+2][col+1] == 0){
-	    board[row][col] = level;
-	    if(solveH(row + 2, col + 1, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
+	for(int i = 0; i < rowChoices.length; i++){
+	    if(row + rowChoices[i] < board.length && row + rowChoices[i] >= 0 && col + colChoices[i] < board[0].length && col + colChoices[i] >= 0 && board[row+rowChoices[i]][col+colChoices[i]] == 0){
+		board[row][col] = level;
+		if(solveH(row + rowChoices[i], col + colChoices[i], level + 1)){
+		    return true;
+		}else{
+		    board[row][col] = 0;
+		}
 	    }
 	}
-	if(row + 2 < board.length && row + 2 >= 0 && col - 1 < board[0].length && col - 1 >= 0 && board[row+2][col-1] == 0){
-	    board[row][col] = level;
-	    if(solveH(row + 2, col - 1, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row - 2 < board.length && row - 2 >= 0 && col + 1 < board[0].length && col + 1 >= 0 && board[row-2][col+1] == 0){
-	    board[row][col] = level;
-	    if(solveH(row - 2, col + 1, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row - 2 < board.length && row - 2 >= 0 && col - 1 < board[0].length && col - 1 >= 0 && board[row-2][col-1] == 0){
-	    board[row][col] = level;
-	    if(solveH(row - 2, col - 1, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row + 1 < board.length && row + 1 >= 0 && col + 2 < board[0].length && col + 2 >= 0 && board[row+1][col+2] == 0){
-	    board[row][col] = level;
-	    if(solveH(row + 1, col + 2, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row + 1 < board.length && row + 1 >= 0 && col - 2 < board[0].length && col - 2 >= 0 && board[row+1][col-2] == 0){
-	    board[row][col] = level;
-	    if(solveH(row + 1, col - 2, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row - 1 < board.length && row - 1 >= 0 && col + 2 < board[0].length && col + 2 >= 0 && board[row-1][col+2] == 0){
-	    board[row][col] = level;
-	    if(solveH(row - 1, col + 2, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	if(row - 1 < board.length && row - 1 >= 0 && col - 2 < board[0].length && col - 2 >= 0 && board[row-1][col-2] == 0){
-	    board[row][col] = level;
-	    if(solveH(row - 1, col - 2, level + 1)){
-		return true;
-	    }else{
-		board[row][col] = 0;
-	    }
-	}
-	return false;
+ 	return false;
     }
 
     public static void main(String[]args){
@@ -120,5 +65,8 @@ public class KnightBoard{
 	KnightBoard n44 = new KnightBoard(4, 4);
 	n44.solve();
 	System.out.println(n44.toString()); //no solution, should print blank board
+	KnightBoard n77 = new KnightBoard(7, 7);
+	n77.solve();
+	System.out.println(n77.toString());
     }
 }
