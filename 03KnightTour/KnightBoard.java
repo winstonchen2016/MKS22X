@@ -27,8 +27,8 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row ,int col, int level){ // level is the # of the knight
-	System.out.println("Currently at: Row: " + row + " Col: " + col + " Lvl: " + level);
-	System.out.println(toString());
+	//System.out.println("Currently at: Row: " + row + " Col: " + col + " Lvl: " + level);
+	//System.out.println(toString());
 	if(level >= board.length * board[0].length){
 	    board[row][col] = level;
 	    return true;
@@ -108,5 +108,17 @@ public class KnightBoard{
 	//System.out.println(n55.toString());
 	n55.solve();
 	System.out.println(n55.toString());
+	KnightBoard n66 = new KnightBoard(6, 6);
+	n66.solve();
+	System.out.println(n66.toString());
+	KnightBoard n11 = new KnightBoard(1, 1);
+	n11.solve();
+	System.out.println(n11.toString());
+	KnightBoard n93 = new KnightBoard(9, 3);
+	n93.solve();
+	System.out.println(n93.toString());
+	KnightBoard n44 = new KnightBoard(4, 4);
+	n44.solve();
+	System.out.println(n44.toString()); //no solution, should print blank board
     }
 }
