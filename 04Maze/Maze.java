@@ -21,17 +21,22 @@ public class Maze{
 
     public Maze(String filename){
         animate = false;
-	int numRow = 0;
-	int numCol = 0;
+	ArrayList<String> lines = new ArrayList<String>();
+	int numRows = 0;
+	int numCols = 0;
 	boolean hasE = false;
 	boolean hasS = false;
 	try{
 	    File text = new File(filename); 
 	    Scanner inf = new Scanner(text);
 	    while(inf.hasNextLine()){
-		numRow += 1;
-		//String line = inf.nextLine();
-		//System.out.println(line);
+		numRows ++;
+		String l = inf.nextLine();
+		lines.add(l);
+		System.out.println(lines.toString());
+	    }
+	    for(int i = 0; i < lines.get[0].length(); i++){
+		numCols++;
 	    }
 	}catch(FileNotFoundException e){
 	    System.out.println("Invalid filename or path.");
