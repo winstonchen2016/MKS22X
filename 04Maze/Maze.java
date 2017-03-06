@@ -24,8 +24,8 @@ public class Maze{
 	ArrayList<String> lines = new ArrayList<String>();
 	int numRows = 0;
 	int numCols = 0;
-	boolean hasE = false;
-	boolean hasS = false;
+	int numE = 0;
+	int numS = 0;
 	try{
 	    File text = new File(filename); 
 	    Scanner inf = new Scanner(text);
@@ -33,24 +33,40 @@ public class Maze{
 		numRows ++;
 		String l = inf.nextLine();
 		lines.add(l);
-		System.out.println(lines.toString());
+		//System.out.println(lines.toString());
 	    }
-	    for(int i = 0; i < lines.get[0].length(); i++){
+	    for(int i = 0; i < lines.get(0).length(); i++){
 		numCols++;
+	    }
+	    maze = new char[numRows][numCols];
+	    for(int r = 0; r < maze.length; r++){
+		for(int c = 0; c < maze[0].length; c++){
+		    maze[r][c] = lines.get(r).charAt(c);
+		    if(maze[r][c] == 'S'){
+			numS += 1;
+		    }
+		    if(maze[r][c] == 'E'){
+			numE += 1;
+		    }
+		}
 	    }
 	}catch(FileNotFoundException e){
 	    System.out.println("Invalid filename or path.");
 	    System.exit(1);
 	}
+	if(numE != 1 || numS != 1){
+	    System.out.println("Maze requires exactly one E and exactly one S.");
+	    System.exit(1);
+	}
     }
     
-    private void wait(int millis){
-	try {
-	    Thread.sleep(millis);
-	}
-	catch (InterruptedException e) {
-	}
-    }
+    private void wait(int millis){ //ADDED SORRY!
+         try {
+             Thread.sleep(millis);
+         }
+         catch (InterruptedException e) {
+         }
+     }
     
     public void setAnimate(boolean b){
         animate = b;
@@ -68,8 +84,15 @@ public class Maze{
     public boolean solve(){
 	int startr=-1,startc=-1;
 
-	//Initialize starting row and startint col with the location of the S. 
-
+	//Initialize starting row and startint col with the location of the S.
+	for(int r = 0; r < maze.length; r++){
+	    for(int c = 0; c < maze[0].length; c++){
+		if(maze[r][c] == 'S'){
+		    startr = r;
+		    startc = c;
+		}
+	    }
+	}
 	maze[startr][startc] = ' ';//erase the S, and start solving!
 	return solve(startr,startc);
     }
@@ -93,10 +116,34 @@ public class Maze{
     private boolean solve(int row, int col){
         if(animate){
             System.out.println("\033[2J\033[1;1H"+this);
-
             wait(20);
         }
-        //COMPLETE SOLVE
+        if(maze[row][col] == 'E'){
+	    return true;
+	}
+	else if(maze[row][col] == '#' || maze[row][col] == '.' || maze[row][col] == '@'){
+	    return false;
+	}
+	else{
+	    maze[row][col] = '@';
+	    if(solve(row + 1, col) || solve(row - 1, col) || solve(row, col + 1) || solve(row, col - 1)){
+		return true;
+	    }
+	    else{
+		maze[row][col] = '.';
+	    }
+	}
         return false; //so it compiles
+    }
+
+    public String toString(){
+	String s = "";
+	for(int r = 0; r < maze.length; r++){
+	    for(int c = 0; c < maze[0].length; c++){
+		s += maze[r][c];
+	    }
+	    s += '\n';
+	}
+	return s;
     }
 }
