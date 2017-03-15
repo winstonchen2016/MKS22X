@@ -145,8 +145,11 @@ public class USACO{
     }
 
     private static int silverH(int[][] old, int[][] n, int er, int ec, int t){
+	if (t == 0) {
+	    return old[er][ec] + n[er][ec];
+	}
 	n = reset(old);
-	System.out.println(toString(old));
+	//System.out.println(toString(old));
 	//System.out.println(toString(n));
 	for(int r = 0; r < old.length; r++){
 	    for(int c = 0; c < old[r].length; c++){
@@ -166,13 +169,8 @@ public class USACO{
 		}
 	    }
 	}
-	System.out.println(toString(n));
-      	if(t > 0){
-	    return silverH(n, reset(old), er, ec, t - 1);
-	}
-	else{
-	    return old[er][ec] + n[er][ec];
-	}
+	//System.out.println(toString(n));
+	return silverH(n, reset(old), er, ec, t - 1);
     }
 
     private static boolean validIndex(int[][] ar, int row, int col){
