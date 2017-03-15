@@ -170,7 +170,12 @@ public class USACO{
 	    }
 	}
 	//System.out.println(toString(n));
+      	//if(t > 0){
 	return silverH(n, reset(old), er, ec, t - 1);
+	//}
+	//else{
+	//    return old[er][ec] + n[er][ec];
+	//}
     }
 
     private static boolean validIndex(int[][] ar, int row, int col){
