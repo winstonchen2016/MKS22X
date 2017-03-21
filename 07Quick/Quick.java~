@@ -1,6 +1,6 @@
-public class QuickSelect{
+public class Quick{
 
-    public QuickSelect(){};
+    public Quick(){};
 
     public static int part(int[] data, int start, int end){
 	int L = start + 1;
@@ -11,32 +11,16 @@ public class QuickSelect{
 	System.out.println("Pivot Element: " + pivot);
 	swap(data, start, M); //moves pivot to beginning for easier sorting
 	//System.out.println("Initial array: " + toString(data) + "\n");
-	while(L < R){
-	    while(data[L] < pivot && L < end){ //increments lower bound upwards until it hits an element that needs swapping
-		L ++;
-	    }
-	    while(data[R] >= pivot && R > start){ //increments upper bound downwards until it hits an element that needs swapping
-		R --;
-	    }
-	    System.out.println("L: " + L);
-	    System.out.println("R: " + R);
-	    System.out.println("Before swap: " + toString(data));
-	    if(L < R){ //swaps L and R if they are on the wrong sides
-		swap(data, L, R);
-	    }
-	    //System.out.println("After  swap: " + toString(data) + "\n");
-	    if(data[L] == pivot && data[R] == pivot){ //prevetns infinite looping from swapping identical elements (probably not necessary?)
+	while(L <= R){
+	    if(data[L] < pivot){ //swaps L and R if they are on the wrong sides
 		L++;
+	    }
+	    else{
+		swap(data, L, R);
 		R--;
 	    }
 	}
-	if(r != start){
-	    swap(data, start, R);
-	}
-	//System.out.println("Pivot Index: " + M);
-	//System.out.println("Pivot Element: " + pivot);
-	//System.out.println("Final L: " + L);
-	//System.out.println("Final R: " + R);
+	swap(data, start, R);
 	System.out.println("Final array: " + toString(data) + "\n");
 	return R;
     }
