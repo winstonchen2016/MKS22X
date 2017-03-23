@@ -7,6 +7,9 @@ public class Quick{
     }
 
     private static void qsortH(int[] a, int start, int end){
+	if(a.length == 0){
+	    return;
+	}
 	int L = start; //left
 	int I = start; //current index
 	int R = end; //right
@@ -28,8 +31,8 @@ public class Quick{
 		I++;
 	    }
 	}
-	System.out.println("Start: "  + start + "  End: " + end + "  Pivot Index: " + K + "  Pivot: " + pivot + "  L: " + L + "  R: " + R + "  I: " + I);
-	System.out.println("Current array: " + toString(a));
+	//System.out.println("Start: "  + start + "  End: " + end + "  Pivot Index: " + K + "  Pivot: " + pivot + "  L: " + L + "  R: " + R + "  I: " + I);
+	//System.out.println("Current array: " + toString(a));
 	if(L - start > 1 || end - R > 1){
 	    if(L - start > 1){
 		qsortH(a, start, L - 1);
@@ -40,11 +43,11 @@ public class Quick{
 	}
     }
 
-    public static void quickselect(int[]ary, int k){
-	qselectH(ary, 0, ary.length - 1, k)
+    public static int quickselect(int[]ary, int k){
+	return qselectH(ary, 0, ary.length - 1, k);
     }
 
-    private static void qselectH(int[] a, int start, int end, int k){
+    private static int qselectH(int[] a, int start, int end, int k){
 	int L = start; //left
 	int I = start; //current index
 	int R = end; //right
@@ -66,16 +69,16 @@ public class Quick{
 		I++;
 	    }
 	}
-	System.out.println("Start: "  + start + "  End: " + end + "  Pivot Index: " + K + "  Pivot: " + pivot + "  L: " + L + "  R: " + R + "  I: " + I);
-	System.out.println("Current array: " + toString(a));
-	if(k < R){
-	    qselectH(a, start, L - 1);
+	//System.out.println("Start: "  + start + "  End: " + end + "  k: " + k + "  Pivot Index: " + K + "  Pivot: " + pivot + "  L: " + L + "  R: " + R + "  I: " + I);
+	//System.out.println("Current array: " + toString(a));
+	if(k < R + 1){
+	    return qselectH(a, start, L - 1, k);
 	}
-	else if(k > R){
-	    qselectH(a, I, end);
+	else if(k > R + 1){
+	    return qselectH(a, R + 1, end, k);
 	}
 	else{
-	    return R;
+	    return a[R];
 	}
     }
 
@@ -93,28 +96,64 @@ public class Quick{
 	ans = ans + ar[ar.length - 1] + "]";
 	return ans;
     }
+
+    public static boolean checkSorted(int[] a){
+	if(a.length == 0){
+	    return true;
+	}
+	else{
+	    for(int i = 1; i < a.length; i++){
+		if(a[i] < a[i-1]){
+		    return false;
+		}
+	    }
+	}
+	return true;
+    }
     
     public static void main(String[]args){
-	///*
+	/*
+	int[] z = {};
+	quicksort(z);
+	System.out.println(checkSorted(z));
 	int[] a = {5, 7, 6, 1, 3, 2, 0, 4, 8, 9}; //standard test
-	System.out.println("Initial Array: " + toString(a));
-	quicksort(a);	
-       	System.out.println("Final Array: " + toString(a) + "\n");
+	//System.out.println("Initial Array: " + toString(a));
+	quicksort(a);
+       	//System.out.println("Final Array: " + toString(a) + "\n");
+	System.out.println(checkSorted(a));
 	int[] b = {3, 4, 5, 6, 8, 3, 5, 9, 7, 8, 5, 5, 3, 0, 5, 3, 1, 2, 3, 5}; //Dutch Flag test
-	System.out.println("Initial Array: " + toString(b));
+	//System.out.println("Initial Array: " + toString(b));
 	quicksort(b);
-       	System.out.println("Final Array: " + toString(b) + "\n");
-	//*/
+       	//System.out.println("Final Array: " + toString(b) + "\n");
+	System.out.println(checkSorted(b));
+	*/
 	/*
 	int x = 0;
 	while(x < 50){
-	    int[] c = new int[10];
+	    int[] c = new int[1000000];
 	    for(int i = 0; i < c.length; i++){
 		c[i] = (int)(Math.random() * 50);
 	    }
-	    System.out.println("Initial array: " + toString(c));
+	    //System.out.println("Initial array: " + toString(c));
 	    quicksort(c);
-	    System.out.println("Final array: " + toString(c));
+	    //System.out.println("Final array: " + toString(c));
+	    System.out.println(checkSorted(c));
+	}
+	*/
+	/*
+	int[] A = {5, 7, 6, 1, 3, 2, 0, 4, 8, 9}; //standard test
+	int q = quickselect(A, 5);
+	quicksort(A);
+	System.out.println(q == A[4]);
+	int[] B = {3, 4, 5, 6, 8, 3, 5, 9, 7, 8, 5, 5, 3, 0, 5, 3, 1, 2, 3, 5}; //Dutch Flag test
+        int w = quickselect(B, 17);
+	quicksort(B);
+	System.out.println(w == B[16]);
+	*/
+	/*
+	int x = 0;
+	while(x < 50){
+	    int[] C = new int[1000000]
 	}
 	*/
     }
