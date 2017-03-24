@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Quick{
 
     public Quick(){};
@@ -71,14 +73,24 @@ public class Quick{
 	}
 	//System.out.println("Start: "  + start + "  End: " + end + "  k: " + k + "  Pivot Index: " + K + "  Pivot: " + pivot + "  L: " + L + "  R: " + R + "  I: " + I);
 	//System.out.println("Current array: " + toString(a));
-	if(k < R + 1){
-	    return qselectH(a, start, L - 1, k);
+	if(a[k] < pivot){
+	    if(L > start){
+		return qselectH(a, start, L - 1, k);
+	    }
+	    else{
+		return a[R]; //strating block of same elements
+	    }
 	}
-	else if(k > R + 1){
+	else if(a[k] > pivot){
 	    return qselectH(a, R + 1, end, k);
 	}
 	else{
+	    //if(R == a.length - 1){
+	    //return a[R];  //ending block of same elements
+	    //}
+	    //else{
 	    return a[R];
+	    //}
 	}
     }
 
@@ -144,17 +156,37 @@ public class Quick{
 	int[] A = {5, 7, 6, 1, 3, 2, 0, 4, 8, 9}; //standard test
 	int q = quickselect(A, 5);
 	quicksort(A);
-	System.out.println(q == A[4]);
+	System.out.println(q == A[5]);
 	int[] B = {3, 4, 5, 6, 8, 3, 5, 9, 7, 8, 5, 5, 3, 0, 5, 3, 1, 2, 3, 5}; //Dutch Flag test
         int w = quickselect(B, 17);
 	quicksort(B);
-	System.out.println(w == B[16]);
+	System.out.println(w == B[17]);
 	*/
 	/*
 	int x = 0;
 	while(x < 50){
-	    int[] C = new int[1000000]
+	    int[] C = new int[9999999];
+	    for(int i = 0; i < C.length; i++){
+		C[i] = (int)(Math.random() * 50);
+	    }
+	    int k = 1 + (int)Math.random() * 9999997;
+	    int l = quickselect(C, k);
+	    Arrays.sort(C);
+	    System.out.println(l == C[k]);
 	}
+	*/
+	/* //duplicate testing
+	int[] D = {0, 0, 0, 0, 0};
+	int y = quickselect(D, 3);
+	Arrays.sort(D);
+	System.out.println(y == D[3]);
+	int[] E = {0, 9, 0, 5, 9};
+	int z = quickselect(D, 4);
+	Arrays.sort(D);
+	System.out.println(y == D[4]);
+	int Z = quickselect(D, 0);
+	Arrays.sort(D);
+	System.out.println(y == D[0]);	
 	*/
     }
 }
