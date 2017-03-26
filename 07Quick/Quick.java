@@ -206,6 +206,7 @@ public class Quick{
 	System.out.println(y == D[0]);	
 	*/
 	//Penn's Test Code
+	/*
 	int[] a = randomArray(2000000);
 	System.out.println("Completely random array");
 	System.out.println("--------------------");
@@ -340,5 +341,6 @@ public class Quick{
 	    System.out.println("Quickselect...failed!");
 	}
 	System.out.println();
+	*/
     }
 }
