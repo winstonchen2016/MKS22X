@@ -19,6 +19,14 @@ public class Driver{
 	System.out.println(l); //[75, -2]
 	System.out.println(l.set(1, -13)); //-2
 	System.out.println(l); //[75, -13]
+	//System.out.println(l.set(-1, 0)); //throws IndexOutOfBoundsException
+	//System.out.println(l.set(2, 0)); //throws IndexOutOfBoundsException
+	//System.out.println(l.set(3, 0)); //throws IndexOutOfBoundsException
+	System.out.println(l.indexOf(1)); //-1
+	System.out.println(l.indexOf(-4178)); //-1
+	System.out.println(l.indexOf(75)); //0
+	System.out.println(l.indexOf(-13)); //1
+	System.out.println(l.toStringDebug());
     }
 
 }
