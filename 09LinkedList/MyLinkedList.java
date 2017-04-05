@@ -18,11 +18,32 @@ public class MyLinkedList{
     public MyLinkedList(){
     }
 
-    //private LNode getNthNode(int n){/*complete this*/}
+    //private LNode getNthNode(int n){
+    //	LNode current = head;
+	
+    //}
     
-    //private void addBefore(LNode location, LNode toBeAdded){/*complete this*/  }
+    private void addBefore(LNode location, LNode toBeAdded){
+	toBeAdded.next = location;
+	toBeAdded.prev = location.prev;
+	location.prev = toBeAdded;
+	try{
+	    toBeAdded.prev.next = toBeAdded;
+	}catch(NullPointerException e){
+	    return;
+	}
+    }
 
-    //private void addAfter(LNode location, LNode toBeAdded){/*complete this*/  }
+    private void addAfter(LNode location, LNode toBeAdded){
+	toBeAdded.prev = location;
+	toBeAdded.next = location.next;
+	location.next = toBeAdded;
+	try{
+	    toBeAdded.next.prev = toBeAdded;
+	}catch(NullPointerException e){
+	    return;
+	}
+    }
     
     //private void remove(LNode target){/*complete this*/}
     
@@ -49,25 +70,14 @@ public class MyLinkedList{
 	    return ans + "]";
 	}
 	LNode current = head;
-        for(int i = 0; i < size; i++){
-	    ans = ans + "{";
-	    if(current.prev.val == null){
-		ans += "null";
-	    }
-	    else{
-		ans += current.prev.val;
-	    }
-	    ans = ans + ")" + current.val + "(";
-	    if(current.next.val == null){
-		ans += "null";
-	    }
-	    else{
-		ans += current.next.val;
-	    }
-	    ans = ans + "), ";
+	ans = ans + "(null)" + current.val + "(" + current.next.val + "), ";
+	current = current.next;
+        for(int i = 1; i < size - 1; i++){
+	    ans = ans + "(" +  current.prev.val + ")" + current.val + "(" + current.next.val + "), ";
 	    current = current.next;
 	}
-	return ans.substring(0, ans.length() - 2) + "]";
+	ans = ans + "{" +  current.prev.val + ")" + current.val + "(null)]";
+	    return ans;
     }
 
     public boolean add(int value){
@@ -81,7 +91,7 @@ public class MyLinkedList{
 	for(int i = 0; i < size - 1; i++){
 	    current = current.next;
 	}
-	current.next = new LNode(value);
+	addAfter(current, new LNode(value));
 	size ++;
 	return true;
     }
