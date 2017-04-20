@@ -1,5 +1,5 @@
 import java.util.*;
-public class MyLinkedList{
+public class MyLinkedList implements Iterable<Integer>{
 
     private class LNode{
 	private int val;
@@ -15,6 +15,39 @@ public class MyLinkedList{
     private LNode tail;
     private int size;
 
+    public class MLLIterator implements Iterator<Integer>{
+	private int index;
+	private MyLinkedList mll;
+	private LNode currentLN;
+
+	private MLLIterator(MyLinkedList l){
+	    index = 0;
+	    mll = l;
+	    currentLN = mll.head;
+	}
+
+        public boolean hasNext(){
+	    return index < mll.size;
+	}
+
+	public Integer next(){
+	    if(hasNext()){
+		int ans = currentLN.val;
+		index++;
+		currentLN = currentLN.next; 
+		return ans;
+	    }
+	    else{
+		throw new NoSuchElementException();
+	    }
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+
+    }
+    
     public MyLinkedList(){
     }
 
@@ -25,14 +58,15 @@ public class MyLinkedList{
 	    for(int i = 0; i < n; i++){
 		current = current.next;
 	    }
+	    return current;
 	}
 	else{
 	    LNode current = tail;
-	    for(int i = size; i > n; i--){
+	    for(int i = size - 1; i > n; i--){
 		current = current.prev;
 	    }
+	    return current;
 	}
-	return current.val;
     }
     
     private void addBefore(LNode location, LNode toBeAdded){
@@ -58,10 +92,16 @@ public class MyLinkedList{
     }
 
     private void remove(LNode x){
-	if(x.next == null){
+	if(size == 1){
+	    head = null;
+	    tail = null;
+	}
+	else if(x.next == null){
+	    tail = x.prev;
 	    x.prev.next = null;
 	}
 	else if(x.prev == null){
+	    head = x.next;
 	    x.next.prev = null;
 	}
 	else{
@@ -89,18 +129,22 @@ public class MyLinkedList{
 
     public String toStringDebug(){
 	String ans = "[";
+	LNode current = head;
 	if(size == 0){
 	    return ans + "]";
 	}
-	LNode current = head;
+	else if(size == 1){
+	    ans = ans + "(null)" + current.val + "(null)]";
+	    return ans;
+	}
 	ans = ans + "(null)" + current.val + "(" + current.next.val + "), ";
 	current = current.next;
         for(int i = 1; i < size - 1; i++){
 	    ans = ans + "(" +  current.prev.val + ")" + current.val + "(" + current.next.val + "), ";
 	    current = current.next;
 	}
-	ans = ans + "{" +  current.prev.val + ")" + current.val + "(null)]";
-	    return ans;
+	ans = ans + "(" +  current.prev.val + ")" + current.val + "(null)]";
+	return ans;
     }
 
     public boolean add(int value){
@@ -114,7 +158,9 @@ public class MyLinkedList{
 	for(int i = 0; i < size - 1; i++){
 	    current = current.next;
 	}
-	addAfter(current, new LNode(value));
+	LNode x = new LNode(value);
+	addAfter(current, x);
+	tail = x;
 	size ++;
 	return true;
     }
@@ -162,7 +208,33 @@ public class MyLinkedList{
 	LNode x = getNthNode(index);
 	int ans = x.val;
 	remove(x);
+	size --;
 	return ans;
     }
-    
+
+    public void add(int index, int value){
+        if(index < 0 || index > size){
+	    throw new IndexOutOfBoundsException();
+	}
+	int h = size/2;
+	LNode x = new LNode(value);
+	if(index < h){
+	    addBefore(getNthNode(index), x);
+	}
+	else{
+	    addAfter(getNthNode(index - 1), x);
+	}
+	if(index == 0){
+	    head = x;
+	}
+	if(index == size){
+	    tail = x;
+	}
+	size ++;
+    }
+
+    public Iterator<Integer> iterator(){
+	return new MLLIterator(this);
+    }
+
 }
