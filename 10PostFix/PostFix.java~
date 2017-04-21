@@ -1,0 +1,48 @@
+public class PostFix{
+
+    private boolean isOp(String s){
+	return s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/") || s.equals("%");
+    }
+
+    private double apply(String op, String a, String b){
+	if(op.equals("+")){
+	    return "" + (a + b);
+	}
+	else if(s.equals("-")){
+	    return "" + (a - b);
+	}
+	else if(s.equals("*")){
+	    return "" + (a * b);
+	}
+	else if(s.equals("/")){
+	    return "" + (a / b);
+	}
+	else{
+	    return "" + (a % b);
+	}
+    }
+    
+    public static double eval(String str){
+	tokens = s.split(" ");
+	values = new stack(Double);
+	for(int i = 0; i < tokens.size, i++){
+	    if(isOp(tokens[i])){
+		value.push(apply(tokens[i], values.pop(), values.pop()));
+	    }
+	    else{
+		values.push(tokens[i]);
+	    }
+	}
+	return Double.parseDouble(values.pop());
+    }
+
+    public static void main(String[]args){
+	System.out.println(eval("10 2.0 +"));
+	System.out.println("12.0");
+	System.out.println(eval("11 3 - 4 + 2.5 *"));
+	System.out.println("30.0");
+	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));
+	System.out.println("893.0");
+    }
+    
+}
