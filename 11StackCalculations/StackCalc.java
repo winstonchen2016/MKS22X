@@ -1,5 +1,5 @@
 import java.util.*;
-public class PostFix{
+public class StackCalc{
 
     private static boolean isOp(String s){
 	return s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/") || s.equals("%");
@@ -38,6 +38,7 @@ public class PostFix{
 	return values.pop();
     }
 
+    /*
     public static void main(String[]args){
 	System.out.println(eval("10 2.0 +"));
 	System.out.println("12.0");
@@ -46,5 +47,5 @@ public class PostFix{
 	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));
 	System.out.println("893.0");
     }
-    
+    */
 }
