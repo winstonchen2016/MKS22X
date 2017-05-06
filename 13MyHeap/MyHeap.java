@@ -23,6 +23,10 @@ public class MyHeap{
 	    k = -1;
 	}
     }
+
+    public int size(){
+	return size;
+    }
     
     public void add(String s){
 	data.add(s); //appends to the end
@@ -35,9 +39,10 @@ public class MyHeap{
 	    throw new NoSuchElementException();
 	}
 	String ans = data.get(1);
-	data.set(1, null);
-	
+	data.set(1, data.get(data.size() - 1));
+	data.remove(data.size() - 1);
 	size -= 1;
+	pushDown(1);
 	return ans;
     }
     
@@ -51,7 +56,7 @@ public class MyHeap{
 	}
 	else if(k * data.get(parent(n)).compareTo(data.get(n)) < 0){ //if parent has lower val
 	    swap(parent(n), n); //swap if true
-	    return pushUp(parent(n)); //recurses upwards
+	    pushUp(parent(n)); //recurses upwards
 	}
 	else{ //parent has larger or equal val
 	    return; //no swap needed, end
@@ -59,9 +64,12 @@ public class MyHeap{
     }
     
     private void pushDown(int n){
-	if(hasLeft(n) && hasRight(n)){ //two children
-	    if(k * data.get(left(n)).comapreTo(data.get(n)) > 0 && k * data.get(right(n)).compareTo(data.get(n)) > 0){ //both children greater
-		if(k * data.get(left(n)).comapreTo(data.get(right(n))) > 0){ //left > right
+	//System.out.println(toString());
+	//System.out.println("current n = " + n);
+	//System.out.println("current size = " + size);
+	if(hasLeft(n) && hasRight(n)){ //two children (also tests if index is out of bounds)
+	    if(k * data.get(left(n)).compareTo(data.get(n)) > 0 && k * data.get(right(n)).compareTo(data.get(n)) > 0){ //both children greater
+		if(k * data.get(left(n)).compareTo(data.get(right(n))) > 0){ //left > right
 		    swap(left(n), n); //swap with left
 		    pushDown(left(n)); //recurse down and left
 		}
@@ -70,7 +78,7 @@ public class MyHeap{
 		    pushDown(right(n)); //recurse down and right
 		}
 	    }
-	    else if(k * data.get(left(n)).comapreTo(data.get(n)) > 0){ //only left greater
+	    else if(k * data.get(left(n)).compareTo(data.get(n)) > 0){ //only left greater
 		swap(left(n), n); //swap with left
 		pushDown(left(n)); //recurse down and left
 	    }
@@ -83,8 +91,26 @@ public class MyHeap{
 	    }
 	}
 	else if(hasLeft(n)){ //left child only
-	    
-		
+	    if(k * data.get(left(n)).compareTo(data.get(n)) > 0){ //left greater
+		swap(left(n), n); //swap with left
+		pushDown(left(n)); //recurse down and left
+	    }
+	     else{ //left not greater, end
+		return;
+	    }
+	}
+	else if(hasRight(n)){ //right child only
+	    if(k * data.get(right(n)).compareTo(data.get(n)) > 0){ //right greater
+		swap(right(n), n); //swap with right
+		pushDown(right(n)); //recurse down and right
+	    }
+	    else{ //right not greater, end
+		return;
+	    }
+	}
+	else{ //no children, end
+	    return;
+	}
     }
 
     private boolean hasLeft(int n){
@@ -100,7 +126,7 @@ public class MyHeap{
     }
 
     private int right(int n){
-	return 2 * n + 1
+	return 2 * n + 1;
     }
 
     private int parent(int n){
@@ -117,5 +143,63 @@ public class MyHeap{
 	String tempB = data.get(b);
 	data.set(a, tempB);
 	data.set(b, tempA);
+    }
+
+    public String toString(){
+	if(size == 0){
+	    return "[]";
+	}
+	else{
+	    String ans =  data.toString();
+	    return "[" + ans.substring(7);
+	}
+    }
+
+    public static void main(String[]args){
+	MyHeap a = new MyHeap();
+	//adding
+	a.add("a");
+	System.out.println(a.size()); //1
+	System.out.println(a.toString());
+	a.add("b");
+	System.out.println(a.size()); //2
+	System.out.println(a.toString());
+	a.add("ab");
+	System.out.println(a.size()); //3
+	System.out.println(a.toString());
+	a.add("bc");
+	System.out.println(a.size()); //4
+	System.out.println(a.toString());
+	a.add("z");
+	System.out.println(a.size()); //5
+	System.out.println(a.toString());
+	a.add("c");
+	System.out.println(a.size()); //6
+	System.out.println(a.toString());
+	System.out.println();
+	//peeking
+	System.out.println(a.peek()); //"z"
+	System.out.println();
+	//removing
+	System.out.println(a.remove()); //"z"
+	System.out.println(a.size()); //5
+	System.out.println(a.toString());
+	System.out.println(a.remove()); //"c"
+	System.out.println(a.size()); //4
+	System.out.println(a.toString());
+	System.out.println(a.remove()); //"bc"
+	System.out.println(a.size()); //3
+	System.out.println(a.toString());
+	System.out.println(a.remove()); //"b"
+	System.out.println(a.size()); //2
+	System.out.println(a.toString());
+	System.out.println(a.remove()); //"ab"
+	System.out.println(a.size()); //1
+	System.out.println(a.toString());
+	System.out.println(a.remove()); //"a"
+	System.out.println(a.size()); //0
+	System.out.println(a.toString());
+	//System.out.println(a.remove()); //NoSuchElementException
+	System.out.println();
     }
 }
