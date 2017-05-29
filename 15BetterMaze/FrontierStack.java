@@ -1,9 +1,11 @@
+import java.util.*;
+
 public class FrontierStack implements Frontier{
     
-    private Stack S;
+    private Stack<Location> S;
 
     public FrontierStack(){
-	S = new Stack();
+	S = new Stack<Location>();
     }
 
     public void add(Location l){

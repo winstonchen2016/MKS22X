@@ -41,7 +41,19 @@ public class Location implements Comparable<Location>{
 	    }
 	}
     }
-
+    
+    public int getRow(){
+	return row;
+    }
+    
+    public int getCol(){
+	return col;
+    }
+    
+    public Location getPrevious(){
+	return previous;
+    }
+    
     public int getDistToStart(){
 	return distToStart;
     }
@@ -49,5 +61,5 @@ public class Location implements Comparable<Location>{
     public int getDistToGoal(){
 	return distToGoal;
     }
-    
+
 }
