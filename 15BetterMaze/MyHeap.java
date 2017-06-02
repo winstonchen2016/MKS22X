@@ -1,4 +1,5 @@
 import java.util.*;
+
 public class MyHeap{
     
     public ArrayList <Location> data;
@@ -12,7 +13,7 @@ public class MyHeap{
 	k = 1;
     }
     
-    public MyHeap(boolean b){
+    public MyHeap(boolean b){ //true: construct empty max heap, false: construct empty min heap.
 	data = new ArrayList<Location>();
 	data.add(null);
 	size = 0;
@@ -28,28 +29,24 @@ public class MyHeap{
 	return size;
     }
     
-    public void add(String s){
-	data.add(s); //appends to the end
+    public void add(Location l){
+	data.add(l); //appends to the end
 	size += 1; //fixes size
 	pushUp(size); //fixes array if necessary
     }
 
-    public String remove(){
+    public Location remove(){
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	String ans = data.get(1);
+	Location ans = data.get(1);
 	data.set(1, data.get(data.size() - 1));
 	data.remove(data.size() - 1);
 	size -= 1;
 	pushDown(1);
 	return ans;
     }
-    
-    public String peek(){
-	return data.get(1); //looks at topmost val and returns it
-    }
-    
+
     private void pushUp(int n){
 	if(parent(n) == -1){ //root or bad index
 	    return;
@@ -139,23 +136,14 @@ public class MyHeap{
     }
     
     private void swap(int a, int b){
-	String tempA = data.get(a);
-	String tempB = data.get(b);
+	Location tempA = data.get(a);
+	Location tempB = data.get(b);
 	data.set(a, tempB);
 	data.set(b, tempA);
     }
 
-    public String toString(){
-	if(size == 0){
-	    return "[]";
-	}
-	else{
-	    String ans =  data.toString();
-	    return "[" + ans.substring(7);
-	}
-    }
-
     public static void main(String[]args){
+	/*
 	MyHeap a = new MyHeap();
 	//adding
 	a.add("a");
@@ -201,5 +189,6 @@ public class MyHeap{
 	System.out.println(a.toString());
 	//System.out.println(a.remove()); //NoSuchElementException
 	System.out.println();
+	*/
     }
 }
