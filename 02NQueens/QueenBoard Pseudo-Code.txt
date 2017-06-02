@@ -8,12 +8,12 @@ public class QueenBoard{
 	if size <= 0
 		throw IllegalArgumentException
 	board = new int[size][size];
-	solution = new int[size][size]
+	solution = new int[size][size];
     }
 
     /**
      *precondition: board is filled with 0's only.
-     *@return false when the board is not solvable. true otherwise.
+     *@return false when the board is not solveable. true otherwise.
      *postcondition: 
      *if false: board is still filled with 0's
      *if true: board is filled with the 
@@ -31,8 +31,9 @@ public class QueenBoard{
 	current row = 0
 	loop though rows
 		if(# at r,c == 0){
-	    	addQueen(r,c)
-			solveH(col + 1)
+		    	addQueen(r,c)
+			if solveH(col + 1) fails
+				removeQueen(r,c)
 		}
 	if loop ends
 		return false;
@@ -64,10 +65,10 @@ public class QueenBoard{
 		checks rows, columns, and diagonals
     }
 	
-    private void addQueen(r, c){
+    private void removeQueen(r, c){
 	removes a queen on square r, c (sets value to 0)
 	loops through array board
-		subtracts "1" to spaces threatened by the queen on r, c (excludes r, c b/c queens can't threaten themselves)
+		subtracts "1" to spaces threatened by the queen on r, c (excludes r, c b/c queens can't threaten tehmselves)
 		checks rows, columns, and diagonals
     }
 
