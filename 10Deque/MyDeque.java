@@ -38,7 +38,7 @@ public class MyDeque{
     }
 
     public void addFirst(String s){
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	if(s == null){
 	    throw new NullPointerException();
 	}
@@ -53,11 +53,11 @@ public class MyDeque{
 	}
 	data[front] = s;
 	size++;
-        System.out.println("Front: " + front + "\n" + "Back: " + back);
+        //System.out.println("Front: " + front + "\n" + "Back: " + back);
     }
     
     public void addLast(String s){
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	if(s == null){
 	    throw new NullPointerException();
 	}
@@ -72,11 +72,11 @@ public class MyDeque{
 	}
 	data[back] = s;
 	size++;
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
     }
 
     public String removeFirst(){
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
@@ -86,12 +86,12 @@ public class MyDeque{
 	    front = 0;
 	}
 	size--;
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	return ans;
     }
 
     public String removeLast(){
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
@@ -101,7 +101,7 @@ public class MyDeque{
 	    back = data.length - 1;
 	}
 	size--;
-	System.out.println("Front: " + front + "\n" + "Back: " + back);
+	//System.out.println("Front: " + front + "\n" + "Back: " + back);
 	return ans;
     }
 
@@ -146,6 +146,7 @@ public class MyDeque{
 	//a.addLast("z");
 	//System.out.println(a.size()); //2
 	//System.out.println(a.toStringDebug());
+	/*
 	a.addFirst("a");
 	System.out.println(a.size()); //1
 	System.out.println(a.toStringDebug());
@@ -205,5 +206,6 @@ public class MyDeque{
 	a.addLast("p");
 	System.out.println(a.size()); //11
 	System.out.println(a.toStringDebug());
+	*/
     }
 }
