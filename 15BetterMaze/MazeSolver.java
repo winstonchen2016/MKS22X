@@ -48,7 +48,9 @@ public class MazeSolver{
 		    current = current.getPrevious();
 		}
 		maze.set(current.getRow(), current.getCol(), '@');
-		System.out.println(maze.toString(0));
+		if(animate){
+		    System.out.println(maze.toString(0));
+		}
 		return;
 	    }
 	    maze.set(current.getRow(), current.getCol(), '.'); //sets traversed spaces to '.'
@@ -157,5 +159,9 @@ public class MazeSolver{
 	MazeSolver e3 = new MazeSolver("data5.txt", true);
 	e3.solve(3);
 	*/
+	//If you run this there should be NO OUTPUT AT ALL:
+	MazeSolver s = new MazeSolver("data1.txt");
+	s.solve(1);
+	String ans = s.toString();
     }
 }
